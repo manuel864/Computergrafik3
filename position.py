@@ -1,7 +1,7 @@
 import pygame
 
 pygame.init()
-font = pygame.font.Font('freesansbold.ttf', 24)
+
 class Position:
     def __init__(self, x, y):
         self.x = x

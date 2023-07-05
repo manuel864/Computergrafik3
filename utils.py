@@ -32,12 +32,14 @@ def cubicBezierCurve(positions, t1, t2, screen, cubicCurve):
     pygame.draw.line(screen, purple, (a.x, a.y), (b.x, b.y), 2)
     pygame.draw.line(screen, purple, (b.x, b.y), (c.x, c.y), 2)
 
-    start = linearBezierCurve(a, b, t1, screen, green)
-    end = linearBezierCurve(b, c, t1, screen, green)
+    d = linearBezierCurve(a, b, t1, screen, green)
+    e = linearBezierCurve(b, c, t1, screen, green)
 
-    pygame.draw.line(screen, green, (start.x, start.y), (end.x, end.y), 2)
+    pygame.draw.line(screen, green, (d.x, d.y), (e.x, e.y), 2)
 
-    if len(cubicCurve) > 2:
-        pygame.draw.lines(screen, red, False,  cubicCurve, 4)
+    f = linearBezierCurve(d, e, t1, screen, blue)
+
+    if len(cubicCurve) > 3:
+        pygame.draw.lines(screen, blue, False, cubicCurve, 4)
 
     cubicCurve.append(point)
