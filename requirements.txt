@@ -2,3 +2,4 @@ numpy
 pygame 
 ipywidgets
 jupyterlab
+jupyter nbextension enable --py widgetsnbextension
