@@ -1,7 +1,7 @@
 import pygame
 import numpy as np
 
-# Fenstergröße
+
 WIDTH, HEIGHT = 800, 800
 pygame.font.init()
 
@@ -44,14 +44,14 @@ class Hermite_Point:
 
     def handle_event(self,event):
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:  # Linke Maustaste gedrückt
-                if self.rect.collidepoint(event.pos):  # Überprüfe, ob die Maus auf dem Viereck ist
+            if event.button == 1:  
+                if self.rect.collidepoint(event.pos): 
                     self.dragging = True
         elif event.type == pygame.MOUSEBUTTONUP:
-            if event.button == 1:  # Linke Maustaste losgelassen
+            if event.button == 1:  
                 self.dragging = False
         elif event.type == pygame.MOUSEMOTION:
-            if self.dragging:  # Wenn das Viereck gezogen wird, aktualisiere seine Position
+            if self.dragging:  
                 self.rect.x += event.rel[0]
                 self.rect.y += event.rel[1]
         self.pos[0] = self.rect.x+10
@@ -73,35 +73,20 @@ class Tangente_point:
 
     def handle_event(self,event):
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:  # Linke Maustaste gedrückt
-                if self.rect.collidepoint(event.pos):  # Überprüfe, ob die Maus auf dem Viereck ist
+            if event.button == 1:  
+                if self.rect.collidepoint(event.pos):  
                     self.dragging = True
         elif event.type == pygame.MOUSEBUTTONUP:
-            if event.button == 1:  # Linke Maustaste losgelassen
+            if event.button == 1:  
                 self.dragging = False
         elif event.type == pygame.MOUSEMOTION:
-            if self.dragging:  # Wenn das Viereck gezogen wird, aktualisiere seine Position
+            if self.dragging:  
                 self.rect.x += event.rel[0]
                 self.rect.y += event.rel[1]
         self.pos[0] = self.rect.x+8
         self.pos[1] = self.rect.y+8
 
-def hermite_interpolation(point0,point1, t,screen):
-
-    p0 = point0.pos
-    m0 = point0.m
-
-    p1 = point1.pos
-    m1 = point1.m
-
-    h00 = 2 * t**3 - 3 * t**2 + 1
-    h10 = t**3 - 2 * t**2 + t
-    h01 = -2 * t**3 + 3 * t**2
-    h11 = t**3 - t**2
-
-    p = h00 * p0 + h10  * m0 + h01 * p1 + h11  * m1
-
-
+def draw_influence(screen,h00,h01,h10,h11):
     font = pygame.font.Font(None, 19)
     lenght = 50
     #H00
@@ -140,6 +125,24 @@ def hermite_interpolation(point0,point1, t,screen):
     pygame.draw.line(screen,(0,0,0),(25,650),(95,650))
     txt_surface = font.render('1', True, (0,0,0))
     screen.blit(txt_surface, (100, 640-lenght))
+
+def hermite_interpolation(point0,point1, t,screen):
+
+    p0 = point0.pos
+    m0 = point0.m
+
+    p1 = point1.pos
+    m1 = point1.m
+
+    h00 = 2 * t**3 - 3 * t**2 + 1
+    h10 = t**3 - 2 * t**2 + t
+    h01 = -2 * t**3 + 3 * t**2
+    h11 = t**3 - t**2
+
+    p = h00 * p0 + h10  * m0 + h01 * p1 + h11  * m1
+
+    draw_influence(screen,h00,h01,h10,h11)
+    
     return p
 
 
