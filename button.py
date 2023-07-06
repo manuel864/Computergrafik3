@@ -13,6 +13,7 @@ class Button():
         self.isEnabled = isEnabled
         self.isClicked = isClicked
 
+    #draw Button
     def draw(self, screen, font):
         button = pygame.rect.Rect((self.x, self.y), (self.width, self.height))
         pygame.draw.rect(screen, self.color, button, 0, 5)
@@ -21,6 +22,7 @@ class Button():
 
         screen.blit(buttonText, (self.x + (self.width - buttonText.get_width()) // 2, self.y + (self.height - buttonText.get_height()) // 2))
 
+    #check if Button was clicked
     def checkClick(self):
         if self.isEnabled == True:
             mouse_pos = pygame.mouse.get_pos()
