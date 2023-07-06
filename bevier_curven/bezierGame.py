@@ -79,6 +79,11 @@ def startBezierGame():
         pygame.draw.line(screen, grey, (0, 510), (screen.get_width(), 510), 1)
 
         for event in pygame.event.get():
+            #Quit pygame
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.QUIT
+
             #checks for Mouse events
             if t2 >= 1:
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -139,11 +144,6 @@ def startBezierGame():
                                 for t2 in range(101):
                                     t2 /= 100.0
                                     cubicBezierCurve(controlPoints, t1, t2, screen, curvePoints)
-
-            #Quit pygame
-            if event.type == pygame.QUIT:
-                running = False
-                pygame.QUIT
 
         #draw straight lines in between Control points
         for i in range(len(controlPoints) - 1):
