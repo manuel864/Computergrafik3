@@ -6,7 +6,7 @@ from position import Position
 from utils import *
 from button import Button
 
-def startGame():
+def startBezierGame():
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
     clock = pygame.time.Clock()
@@ -36,7 +36,7 @@ def startGame():
     nextButton = Button(450, 530, 150, 50, black, "Next", white, False, False)
     
     #define booleans
-    startGame = False
+    started = False
     gameStarted = False
     drawLine = False
     drawn = False
@@ -49,7 +49,7 @@ def startGame():
         clock.tick(fps)
         pygame.display.set_caption("Bezier Curve")
 
-        if startGame == True:
+        if started == True:
             #draw draw and next Button once game started
             drawButton.draw(screen, font)
             nextButton.draw(screen, font)
@@ -86,7 +86,7 @@ def startGame():
 
                         #Check if Button is clicked
                         startButton.checkClick()
-                        startGame = startButton.isClicked
+                        started = startButton.isClicked
                         drawButton.checkClick()
                         drawLine = drawButton.isClicked
                         nextButton.checkClick()
@@ -97,7 +97,7 @@ def startGame():
                             t2 = 0
                         
                         #set Game up when User clicks start
-                        if startGame == True and drawn == False:
+                        if started == True and drawn == False:
                             curvePoints.clear()
                             if gameStarted == False:
                                 controlPoints = [Position(100, 100), Position(300, 450), Position(500, 100), Position(700, 450)]
@@ -117,7 +117,7 @@ def startGame():
                 elif event.type == pygame.MOUSEMOTION and dragging is not None and drawn == False:
                         #set boundaries for dragging the Controll points within Windows size
                         if (event.pos[0] < 800 and event.pos[0] > 0) and (event.pos[1] < 500 and event.pos[1] > 0):
-                            if startGame == True:
+                            if started == True:
                                 #if the Game started first and last Points are only able to go to a certain area
                                 if dragging == 0:
                                     if event.pos[0] < 200:
@@ -135,7 +135,7 @@ def startGame():
                             curvePoints.clear()
 
                             #if game didnt start draw the Bezier curve directly when a point changes position
-                            if startGame == False:
+                            if started == False:
                                 for t2 in range(101):
                                     t2 /= 100.0
                                     cubicBezierCurve(controlPoints, t1, t2, screen, curvePoints)

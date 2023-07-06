@@ -4,7 +4,7 @@ from position import Position
 from utils import *
 from button import Button
 
-def startGame():
+def startPolynomGame():
     width = 800
     height = 800
 
