@@ -27,13 +27,12 @@ def convert_to_numpy_polynomial(string):
         if '/' in coeff:
             coeff = Fraction(coeff)
         elif 'sqrt' in coeff:
-            coeff = float(coeff[5:-1])  # Entferne "sqrt(" und ")"
+            coeff = float(coeff[5:-1]) 
             coeff = sqrt(coeff)
         else:
             coeff = float(coeff)
         coefficients.append(coeff)
 
-    # Erstelle das Numpy-Polynom
     polynomial = np.poly1d(coefficients)
 
     return polynomial

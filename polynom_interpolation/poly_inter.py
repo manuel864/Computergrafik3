@@ -1,5 +1,4 @@
 import pygame
-import sys
 import numpy as np
 
 from .ui_elements import Button , InputBox, TargetPoint
@@ -7,11 +6,8 @@ from .utils_poly import convert_to_numpy_polynomial,check_target_hits, vander,ma
 pygame.font.init()
 
 
-
-
 def runge(x):
     return -1/(1+x*x)
-
 
 
 class Polynome_Interpolation:
@@ -251,7 +247,8 @@ class Polynome_Interpolation:
         '''
         Mainloop
         '''
-        while True:
+        self.drawing = True
+        while self.drawing:
             
             self.clock.tick(144)
             self.draw_screen()
@@ -264,15 +261,17 @@ class Polynome_Interpolation:
             self.change_points_btn.draw(self.screen,self.font)
             
             for e in pygame.event.get():
+                if e.type == pygame.QUIT:
+                    pygame.quit()
+                    self.drawing = False
+                    return
                 self.clear_btn.handle_event(e)
                 self.solve_btn.handle_event(e)
                 self.coef_input.handle_event(e)
                 self.points_input.handle_event(e)
                 self.change_points_btn.handle_event(e)
                 self.draw_graph_btn.handle_event(e)
-                if e.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
+                
 
 
             self.coef_input.update()
